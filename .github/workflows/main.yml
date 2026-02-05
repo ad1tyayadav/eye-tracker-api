@@ -1,6 +1,8 @@
 name: CI
 
 on:
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -8,5 +10,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
+      # Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Install Heroku CLI
+      - name: Install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+
+      # Verify Heroku installation (optional but useful)
+      - name: Verify Heroku CLI
+        run: heroku --version
+
+      # Deploy to Heroku
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "web-eye-tracker-1204"
+          heroku_email: "karine.pistili@gmail.com"
