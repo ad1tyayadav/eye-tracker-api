@@ -14,7 +14,7 @@ from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import Ridge
-import time
+
 
 # Model imports
 from sklearn import linear_model
@@ -87,16 +87,11 @@ def trian_and_predict(model_name, X_train, y_train, X_test, y_test, label):
     """
     if (
         model_name == "Linear Regression"
-        or model_name == "Elastic Net"
-        or model_name == "Support Vector Regressor"
     ):
         model = models[model_name]
-        start_time = time.time()
         model.fit(X_train, y_train)
-        end_time = time.time()
         y_pred = model.predict(X_test)
         print(f"Score {label}: {r2_score(y_test, y_pred)}")
-        print(f"Time {label}: {end_time - start_time}")
         return y_pred
     else:
         pipeline = models[model_name]
@@ -109,12 +104,9 @@ def trian_and_predict(model_name, X_train, y_train, X_test, y_test, label):
             refit="r2",
             return_train_score=True,
         )
-        start_time = time.time()
         grid_search.fit(X_train, y_train)
-        end_time = time.time()
         best_model = grid_search.best_estimator_
         y_pred = best_model.predict(X_test)
-        print(f"Time {label}: {end_time - start_time}")
         return y_pred
 
 
