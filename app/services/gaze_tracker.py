@@ -85,9 +85,7 @@ def trian_and_predict(model_name, X_train, y_train, X_test, y_test, label):
     """
     Helper to train a model (with or without GridSearchCV) and return predictions.
     """
-    if (
-        model_name == "Linear Regression"
-    ):
+    if model_name == "Linear Regression":
         model = models[model_name]
         model.fit(X_train, y_train)
         y_pred = model.predict(X_test)
