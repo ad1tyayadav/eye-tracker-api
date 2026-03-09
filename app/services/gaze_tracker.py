@@ -87,8 +87,6 @@ def trian_and_predict(model_name, X_train, y_train, X_test, y_test, label):
     """
     if (
         model_name == "Linear Regression"
-        or model_name == "Elastic Net"
-        or model_name == "Support Vector Regressor"
     ):
         model = models[model_name]
         model.fit(X_train, y_train)
